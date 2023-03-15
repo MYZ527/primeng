@@ -1,0 +1,15 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text p-button-plain"
+      (click)="showSidebar = true"></button>
+    <a href="http://localhost:4200/">
+      <span>Primeng Class</span>
+    </a>
+  </div>
+  <div class="p-toolbar-group-right">
+    <!-- 右側按鈕 -->
+  </div>
+</p-toolbar>
+<p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000" [showCloseIcon]="false" (onHide)="showSidebar = false">
+  <h3>選單</h3>
+</p-sidebar>
