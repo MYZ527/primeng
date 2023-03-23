@@ -1,0 +1,43 @@
+//primng
+p-card {
+  margin: 10px;
+}
+
+//強制更改Primeng預設樣式
+:host ::ng-deep {
+  .p-card {
+    border-radius: 10px;
+  }
+  .p-button{
+    border-radius: 6px;
+  }
+}
+
+p-button,
+button {
+  margin-right: 5px;
+  border-radius: 6px;
+}
+
+input {
+  width: 100%;
+  border-radius: 6px;
+  //上、右、下、左
+  margin: 5px 0 20px 0px;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+  //上、右、下、左
+  margin: 0 0 10px 0;
+}
+
+//使網頁內容置中
+.container {
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 0 15px;
+  width: 1200px;
+  max-width: 100%;
+}
