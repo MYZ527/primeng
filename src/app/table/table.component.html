@@ -1,0 +1,26 @@
+<div class="container">
+  <p-card>
+<h3>學生資料表</h3>
+<p-divider></p-divider>
+<p-table [value]="student" [tableStyle]="{ 'min-width': '50rem' }">
+
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Height</th>
+          <th>Weight</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-student>
+      <tr>
+          <td>{{ student.position }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.height }}</td>
+          <td>{{ student.weight }}</td>
+      </tr>
+  </ng-template>
+
+</p-table>
+  </p-card>
+</div>

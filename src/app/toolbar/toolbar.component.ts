@@ -8,6 +8,11 @@ const panelMenu: any[] = [
     icon: 'pi pi-fw pi-file-edit',
     routerLink: ['/form'],
   },
+  {
+    label: '表格',
+    icon: 'pi pi-fw pi-table',
+    routerLink: ['/table'],
+  },
   //有下拉選單(範例)
   {
     label: '社群',
