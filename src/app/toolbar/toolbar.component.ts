@@ -13,6 +13,11 @@ const panelMenu: any[] = [
     icon: 'pi pi-fw pi-table',
     routerLink: ['/table'],
   },
+  {
+    label: '問卷',
+    icon: 'pi pi-fw pi-file-edit',
+    routerLink: ['survey'],
+  },
   //有下拉選單(範例)
   {
     label: '社群',

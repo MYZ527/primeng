@@ -1,3 +1,107 @@
-<p>
-  survey works!
-</p>
+<div class="container">
+  <p-card>
+    <h3>問卷</h3>
+
+    <p-divider></p-divider>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>姓名</label>
+          <input pInputText />
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>手機</label>
+          <input pInputText />
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>密碼</label>
+          <input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
+          <div id="passwordHelpBlock" class="form-text"></div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <p-checkbox value="Angular"></p-checkbox>
+        <label>Angular</label>
+        <p-checkbox value="bonita"></p-checkbox>
+        <label>bonita</label>
+        <p-checkbox value="database"></p-checkbox>
+        <label>database</label>
+        <p-checkbox value="golang"></p-checkbox>
+        <label>golang</label>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>確認密碼</label>
+          <input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
+          <div id="passwordHelpBlock" class="form-text"></div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>E-mail</label>
+          <input pInputText />
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+        <label>城市</label>
+        <p-dropdown [options]="city" optionLabel="name"></p-dropdown>
+        </div>
+      </div>
+
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+        <label>職業</label>
+        <p-dropdown [options]="career" optionLabel="name"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+        <label>填寫日期</label>
+        <p-calendar [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-wrap gap-3">
+        <label>性別</label>
+
+        <div class="flex align-items-center">
+          <p-radioButton>男</p-radioButton>
+          <p-radioButton>女</p-radioButton>
+          <p-radioButton>其他</p-radioButton>
+        </div>
+
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="flex flex-column gap-2">
+          <label>問題/評論</label>
+          <textarea rows="2" cols="30" pInputTextarea></textarea>
+        </div>
+      </div>
+
+
+      <div class="col-6 row align-items-end">
+        <div style="text-align:right">
+          <button pButton pRipple label="送出"></button>
+        </div>
+      </div>
+
+    </div>
+  </p-card>
+</div>

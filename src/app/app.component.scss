@@ -8,22 +8,49 @@ p-card {
   .p-card {
     border-radius: 10px;
   }
-  .p-button{
+  .button{
     border-radius: 6px;
   }
+  .p-button,
+  button{
+    margin: 20px 5px 0 0;
+    border-radius: 6px;
+  }
+  textarea{
+    width: 100%;
+    border-radius: 6px;
+  }
+  .p-dropdown{
+    width: 100%;
+    border-radius: 6px;
+  }
+  .p-calendar{
+    width: 100%;
+    border-radius: 6px;
+  }
+
 }
 
-p-button,
-button {
-  margin-right: 5px;
-  border-radius: 6px;
+p-checkbox,
+checkbox{
+  //上、右、下、左
+  margin: 45px 5px 0 5px;
 }
+
+p-radioButton,
+  radioButton{
+    margin: 20px 5px 0 0;
+  }
 
 input {
   width: 100%;
   border-radius: 6px;
   //上、右、下、左
-  margin: 5px 0 20px 0px;
+  //margin: 5px 0 20px 0px;
+}
+
+label{
+  margin: 10px 0 0 0;
 }
 
 h3 {
