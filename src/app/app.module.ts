@@ -12,7 +12,7 @@ import { SurveyComponent } from './survey/survey.component';
 import { TableComponent } from './table/table.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     ToolbarComponent,
     FormComponent,
@@ -29,4 +29,4 @@ import { TableComponent } from './table/table.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -38,7 +38,7 @@ import { ImageModule } from 'primeng/image';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
 import { ChipsModule } from 'primeng/chips';
-
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 @NgModule({
@@ -85,7 +85,8 @@ import { ChipsModule } from 'primeng/chips';
     ImageModule,
     TabMenuModule,
     TooltipModule,
-    ChipsModule
+    ChipsModule,
+    RadioButtonModule
   ]
 })
 export class PrimengModule { }

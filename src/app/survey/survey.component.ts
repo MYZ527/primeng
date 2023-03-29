@@ -13,6 +13,8 @@ interface career {
   styleUrls: ['./survey.component.scss'],
 })
 export class SurveyComponent {
+  ingredient!: string;
+
   city: city[] = [];
   career: career[] = [];
   ngOnInit(): void {

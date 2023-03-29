@@ -80,9 +80,12 @@
         <label>性別</label>
 
         <div class="flex align-items-center">
-          <p-radioButton>男</p-radioButton>
-          <p-radioButton>女</p-radioButton>
-          <p-radioButton>其他</p-radioButton>
+          <p-radioButton name="sexual" value="Boy" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
+          <label>男 </label>
+          <p-radioButton name="sexual" value="Girl" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
+          <label>女 </label>
+          <p-radioButton name="sexual" value="Other" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
+          <label>其他 </label>
         </div>
 
         </div>
