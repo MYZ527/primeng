@@ -1,0 +1,68 @@
+<div class="container">
+  <p-card>
+    <h3>GET ALL</h3>
+    <p-divider></p-divider>
+    <!-- [paginator]="true" [rows]="5" -->
+    <p-table [value]="apiData" [lazy]="true" [totalRecords]="100" [rows]="10" [paginator]="true"
+             (onLazyLoad)="loadPostsLazy($event)">
+      <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-end">
+        <span class="p-buttonset">
+          <p-button (click)="addData=true" pTooltip="新增" tooltipPosition="top" icon="pi pi-plus"
+                    styleClass="p-button-text"></p-button>
+        </span></div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>id</th>
+          <th>userId</th>
+          <th>title</th>
+          <th>body</th>
+          <th>編輯</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.userId}}</td>
+          <td>{{user.title}}</td>
+          <td>{{user.body}}</td>
+          <td>
+            <p-button icon="pi pi-pencil"(click)="edit(user.id)"
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
+
+<!--Dialog-->
+<form [formGroup]="form">
+<p-dialog [(visible)]="addData" header="新增">
+    <div class="row">
+      <div class="col-6">
+        <div class="field">
+          <label>userId</label>
+          <input pInputText formControlName="userId">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="field">
+          <label>title</label>
+          <input pInputText formControlName="title">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field">
+          <label>body</label>
+          <input pInputText formControlName="body">
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+          <p-button label="新增" (click)="post()" styleClass="p-button-raised"></p-button>
+          <p-button label="取消" (click)="addData=false" styleClass="p-button-outlined"></p-button>
+        </div>
+      </div>
+    </div>
+</p-dialog>
+</form>

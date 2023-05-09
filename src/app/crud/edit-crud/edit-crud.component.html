@@ -1,0 +1,27 @@
+<div class="container">
+  <form [formGroup]="form">
+    <p-card>
+      <div class="row">
+        <h3>GET ONE</h3>
+        <p-divider></p-divider>
+        <div class="col-6">
+          <label>userId</label>
+          <input pInputText formControlName="userId">
+        </div>
+        <div class="col-6">
+          <label>title</label>
+          <input pInputText formControlName="title">
+        </div>
+        <div class="col-12">
+          <label>body</label>
+          <input pInputText formControlName="body">
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+          <p-button label="儲存" (click)="patch()" styleClass="p-button-raised"></p-button>
+          <p-button label="取消" routerLink="/table" styleClass="p-button-outlined"></p-button>
+          <p-button label="刪除" (click)="delete()"styleClass="p-button-danger"></p-button>
+        </div>
+      </div>
+    </p-card>
+  </form>
+</div>

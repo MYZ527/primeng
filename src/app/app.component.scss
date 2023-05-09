@@ -34,13 +34,17 @@ p-card {
     width: 100%;
     border-radius: 6px;
   }
+  .required {
+    color: red;
+    margin-left: 4px;
+  }
 
 }
 
 p-checkbox,
 checkbox{
   //上、右、下、左
-  margin: 45px 5px 0 5px;
+  margin: 43px 5px 0 5px;
 }
 
 p-radioButton,
@@ -63,7 +67,7 @@ h3 {
   text-align: center;
   font-weight: bold;
   //上、右、下、左
-  margin: 0 0 10px 0;
+  margin: 0 0 0px 0;
 }
 
 //使網頁內容置中
@@ -73,4 +77,23 @@ h3 {
   padding: 0 15px;
   width: 1200px;
   max-width: 100%;
+}
+
+//:host ::ng-deep裡
+.p-dialog {
+  width: 40%;
+  height: 330px;
+}
+
+//對dt及dd元件進行樣式修改
+dt,
+dd {
+//去掉粗體
+font-weight: normal;
+//使dt與dd在同一行
+display: inline;
+//邊界設為0
+margin: 0;
+//字型大小
+font-size: 18px;
 }

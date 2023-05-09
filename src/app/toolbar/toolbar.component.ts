@@ -16,7 +16,17 @@ const panelMenu: any[] = [
   {
     label: '問卷',
     icon: 'pi pi-fw pi-file-edit',
-    routerLink: ['survey'],
+    routerLink: ['/survey'],
+  },
+  {
+    label: 'crud',
+    icon: 'pi pi-fw pi-search',
+    routerLink: ['/crud'],
+  },
+  {
+    label: '設備請購單',
+    icon: 'pi pi-shopping-cart',
+    routerLink: ['/puchase'],
   },
   //有下拉選單(範例)
   {

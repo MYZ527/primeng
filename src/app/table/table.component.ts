@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { ApiService } from '../api/api.service';
+import { LazyLoadEvent } from 'primeng/api';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 interface student {
   position: number;
@@ -12,9 +21,56 @@ interface student {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
+
 export class TableComponent {
   student: student[] = [];
+  visible: boolean = false;
+  test: string = '123';
+  post_form: FormGroup;
+
+  constructor(private HttpApi: ApiService, private fb: FormBuilder) {
+    this.post_form = this.fb.group({
+      //必填
+      userId: ['', [Validators.required]],
+      title: [''],
+      body: [''],
+    });
+  }
+
+  apiData!: ApiService[];
+  postData!:ApiService[];
+
+  getAll() {
+    // this.HttpApi.getAllRequest().subscribe(request => {
+    //   this.apiData = request;
+    //   console.log(this.apiData);
+    // });
+  }
+
+  loadPostsLazy(event: LazyLoadEvent) {
+    const page = event.first! / event.rows! + 1;
+    this.HttpApi.getAllRequest(page).subscribe((request) => {
+      this.apiData = request;
+      console.log(this.apiData);
+    });
+  }
+
+  post(): void {
+    let body = {
+      title: 1,
+      body: 1,
+      userId: 1
+    }
+    this.HttpApi.postRequest(body)
+      .subscribe(request => {
+        this.postData = request
+        console.log(this.postData)
+      })
+  }
+
   ngOnInit(): void {
+    this.post();
+    this.getAll();
     this.student = [
       { position: 1, name: 'Rose', height: 178, weight: 43 },
       { position: 2, name: 'Benny', height: 156, weight: 90 },
@@ -33,6 +89,28 @@ export class TableComponent {
     ];
   }
 
-  constructor() {}
+  data: any = [
+    {
+      position: '',
+      name: '',
+      height: '',
+      weight: '',
+    },
+  ];
+
+  showDialog(student: any): void {
+    this.data = student;
+    console.log('data.position:' + this.data.position);
+    this.visible = true;
+    console.log('student:' + JSON.stringify(student));
+  }
+
+  confirm(): void {
+    this.visible = false;
+    Swal.fire({
+      icon: 'success',
+      title: '儲存完畢',
+    });
+  }
 
 }
