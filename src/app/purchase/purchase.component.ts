@@ -6,15 +6,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 
 //定義
-interface purchase {
+interface purchases {
   applicant: string; //申請人
-  purchase_id: string; //請購編號
+  purchase_id: string;
   company_name: string; //公司名稱
   requisition_department: string; //請購部門
   product: string; //品名
   requisition_quantity: number; //請購數量
   price: number; //單價
-  position:string ; //流水號
+  position:string ; //請購編號
   created_by: string ; //創建者
 }
 
@@ -25,7 +25,7 @@ interface purchase {
 })
 
 export class PurchaseComponent {
-  purchases: purchase[] = [];
+  purchases: purchases[] = [];
   visible: boolean = false;
   form: FormGroup;
   addData: boolean = false;
@@ -65,7 +65,7 @@ export class PurchaseComponent {
   loadPostsLazy(event: LazyLoadEvent) {
     const page = event.first! / event.rows! + 1;
     this.HttpApi.getAllRequest(page).subscribe((request) => {
-      this.apiData = request;
+      this.apiData = request.body.purchases;
       console.log(this.apiData);
     });
   }
@@ -74,7 +74,7 @@ export class PurchaseComponent {
   post(): void {
     let body = {
       applicant: this.form.controls['applicant'].value,
-      purchase_id: this.form.controls['purchase_id'].value,
+      // purchase_id: this.form.controls['purchase_id'].value,
       company_name: this.form.controls['company_name'].value,
       requisition_department: this.form.controls['requisition_department'].value,
       product: this.form.controls['product'].value,
@@ -97,8 +97,8 @@ export class PurchaseComponent {
 
   //讀取
   getAll(): void {
-    this.HttpApi.getAllRequest(1).subscribe((data) => {
-      this.apiData = data.body.purchase;
+    this.HttpApi.getAllRequest(1).subscribe((request) => {
+      this.apiData = request.body.purchases;
       console.log(this.apiData);
     });
   }
@@ -106,14 +106,14 @@ export class PurchaseComponent {
   //更新
   patch(id : any): void {
     let body = {
-      applicant: this.form.controls['applicant'].value,
-      //purchase_id: this.form.controls['purchase_id'].value,
-      company_name: this.form.controls['company_name'].value,
-      requisition_department: this.form.controls['requisition_department'].value,
-      product: this.form.controls['product'].value,
-      requisition_quantity: Number(this.form.controls['requisition_quantity'].value),
-      price: Number(this.form.controls['price'].value),
-      created_by: this.form.controls['created_by'].value,
+      applicant: this.form.get('applicant')?.value,
+      // purchase_id: this.form.controls['purchase_id'].value,
+      company_name: this.form.get('company_name')?.value,
+      requisition_department: this.form.get('requisition_departmentname')?.value,
+      product: this.form.get('product')?.value,
+      requisition_quantity: this.form.get('requisition_quantity')?.value,
+      price: this.form.get('price')?.value,
+      created_by: this.form.get('created_by')?.value,
     };
     this.HttpApi.patchRequest(id, body).subscribe((response) => {
       console.log(response);
@@ -128,9 +128,9 @@ export class PurchaseComponent {
   }
 
   //刪除
-  delete(purchase_id : any): void {
-    console.log(purchase_id)
-    this.HttpApi.deleteRequest(purchase_id).subscribe((response) => {
+  delete(id : any): void {
+    console.log(id)
+    this.HttpApi.deleteRequest(id).subscribe((response) => {
       console.log(response);
       // 刪除成功後的動作
       this.visible = false;
@@ -142,28 +142,31 @@ export class PurchaseComponent {
     });
   }
 
-  purchase_id : any
-
-  showDialog(purchase: any): void {
+  showDialog(purchases: any): void {
     // this.data = purchase;
     // console.log('data.purchase_id:' + this.data.purchase_id);
     this.visible = true;
-    this.form.patchValue(purchase);
-    console.log('purchase:' + JSON.stringify(purchase));
-    this.purchase_id = purchase.purchase_id;
-    console.log(this.purchase_id);
+    this.form.patchValue(purchases);
+    console.log('purchase:' + JSON.stringify(purchases));
+    this.id = purchases.purchase_id;
+    console.log(this.id);
   }
 
-  confirm(): void {
-    this.visible = false;
-    Swal.fire({
-      icon: 'success',
-      title: '成功',
-    });
-  }
+  // confirm(): void {
+  //   this.visible = false;
+  //   Swal.fire({
+  //     icon: 'success',
+  //     title: '成功',
+  //   });
+  // }
 
   cancel(): void {
     this.visible = false;
+  }
+
+  newDialog():void{
+    this.form.reset()
+    this.addData = true ;
   }
 
 }
