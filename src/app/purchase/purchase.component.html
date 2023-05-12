@@ -4,17 +4,19 @@
     <div
       style="display: flex; justify-content: flex-end; align-items: flex-start"
     >
+
       <p-button
-        (click)="addData = true"
+        (click)="addData"
         pTooltip="新增"
         tooltipPosition="top"
         icon="pi pi-plus"
         styleClass="p-button-text"
       ></p-button>
+
     </div>
     <p-divider></p-divider>
 
-    <p-table [value]="purchase" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="apiData" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
           <th>Applicant</th>
@@ -28,10 +30,10 @@
 
       <ng-template pTemplate="body" let-purchase>
         <tr>
-          <td>{{ purchase.name }}</td>
-          <td>{{ purchase.position }}</td>
-          <td>{{ purchase.company }}</td>
-          <td>{{ purchase.department }}</td>
+          <td>{{ purchase.applicant }}</td>
+          <td>{{ purchase.position}}</td>
+          <td>{{ purchase.company_name }}</td>
+          <td>{{ purchase.requisition_department }}</td>
           <td>
             <p-button
               (click)="showDialog(purchase)"
@@ -41,6 +43,7 @@
           </td>
           <td>
             <p-button
+              (click)="delete(purchase.purchase_id)"
               icon="pi pi-trash"
               styleClass="p-button-rounded p-button-secondary p-button-outlined"
             ></p-button>
@@ -53,163 +56,164 @@
 
 <!--新增-->
 <!--Dialog-->
-<p-dialog
-  [(visible)]="addData"
-  header="新增"
-  [style]="{ width: '45vw', height: '800px' }"
->
-  <div class="formgrid grid">
+<form [formGroup]="form">
+  <p-dialog
+    [(visible)]="addData"
+    header="新增"
+    [style]="{ width: '45vw', height: '800px' }"
+  >
+    <div class="formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>申請人</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="applicant" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>申請人</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.name" pInputText />
-      </p>
+      <div class="field col-12 md:col-6">
+        <label>請購編號</label>
+        <p class="text-left">
+          <dd>{{(form.controls['position'].value)}}</dd>
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>公司名稱</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="company_name" pInputText />
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>請購部門</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="requisition_department" pInputText />
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>品名</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="product" pInputText />
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>請購數量</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="requisition_quantity" pInputText />
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>單價</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="price" pInputText />
+        </p>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>創建者</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="created_by" pInputText />
+        </p>
+      </div>
+
+      <div class="ml-auto">
+        <p-button
+          (click)="getAll()"
+          (click)="post()"
+          label="新增"
+          styleClass="p-button-raised p-button-text"
+        ></p-button>
+        <p-button
+          (click)="addData = false"
+          label="取消"
+          styleClass="p-button-rounded p-button-secondary"
+        ></p-button>
+      </div>
     </div>
-
-    <div class="field col-12 md:col-6">
-      <label>請購編號</label>
-      <p class="text-left">
-        <dd>{{data.position }}</dd>
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>公司名稱</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.company" pInputText />
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>請購部門</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.department" pInputText />
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>品名</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.product" pInputText />
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>請購數量</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.quantity" pInputText />
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>單價</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.price" pInputText />
-      </p>
-    </div>
-
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>創建者</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.creater" pInputText />
-      </p>
-    </div>
-
-    <div class="ml-auto">
-      <p-button
-        (click)="post()"
-        label="新增"
-        styleClass="p-button-raised p-button-text"
-      ></p-button>
-      <p-button
-        (click)="addData = false"
-        label="取消"
-        styleClass="p-button-rounded p-button-secondary"
-      ></p-button>
-    </div>
-
-  </div>
-</p-dialog>
+  </p-dialog>
+</form>
 
 <!--編輯-->>
 <!--Dialog-->
 <form [formGroup]="form">
-<p-dialog
-  [(visible)]="visible"
-  header="編輯"
-  [style]="{ width: '45vw', height: '800px' }"
->
-  <div class="formgrid grid">
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>申請人</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.name" pInputText />
-      </p>
-    </div>
+  <p-dialog
+    [(visible)]="visible"
+    header="編輯"
+    [style]="{ width: '45vw', height: '800px' }"
+  >
+    <div class="formgrid grid">
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>申請人</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="applicant" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label>請購編號</label>
-      <p class="text-left">
-        <dd>{{ data.position }}</dd>
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label>請購編號</label>
+        <p class="text-left">
+          <dd>{{(form.controls['position'].value)}}</dd>
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>公司名稱</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.company" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>公司名稱</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="company_name" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>請購部門</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.department" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>請購部門</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="requisition_department" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>品名</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.product" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>品名</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="product" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>請購數量</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.quantity" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>請購數量</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="requisition_quantity" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>單價</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.price" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>單價</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="price" pInputText />
+        </p>
+      </div>
 
-    <div class="field col-12 md:col-6">
-      <label><span class="required">*</span>創建者</label>
-      <p class="line-height-1 w-10">
-        <input [(ngModel)]="data.creater" pInputText />
-      </p>
-    </div>
+      <div class="field col-12 md:col-6">
+        <label><span class="required">*</span>創建者</label>
+        <p class="line-height-1 w-10">
+          <input formControlName="created_by" pInputText />
+        </p>
+      </div>
 
-    <div class="ml-auto">
-      <p-button
-        (click)="patch(id)"
-        label="儲存"
-        styleClass="p-button-raised p-button-text"
-      ></p-button>
-      <p-button
-        (click)="cancel()"
-        label="取消"
-        styleClass="p-button-rounded p-button-secondary"
-      ></p-button>
-    </div>
+      <div class="ml-auto">
+        <p-button
+          (click)="patch(purchase_id)"
+          label="儲存"
+          styleClass="p-button-raised p-button-text"
+        ></p-button>
+        <p-button
+          (click)="cancel()"
+          label="取消"
+          styleClass="p-button-rounded p-button-secondary"
+        ></p-button>
+      </div>
 
-  </div>
-</p-dialog>
+    </div>
+  </p-dialog>
 </form>
